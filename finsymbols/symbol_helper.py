@@ -73,16 +73,14 @@ def fetch_file(url):
     elif isinstance(file_data, bytes):  # Python3
         return file_data.decode("utf-8")
 
-
-def wiki_html(url,file_name):
+#   use full file path here
+def wiki_html(url,file_path):
     '''
     Obtains html from Wikipedia
     Note: API exist but for my use case. Data returned was not parsable. Preferred to use html
     python-wikitools - http://code.google.com/p/python-wikitools/
     Ex. http://en.wikipedia.org/w/api.php?format=xml&action=query&titles=List_of_S%26P_500_companies&prop=revisions&rvprop=content
     '''
-    file_path = os.path.join(os.path.dirname(finsymbols.__file__), file_name)
-
     if is_cached(file_path):
         with open(file_path, "r") as sp500_file:
             return sp500_file.read()

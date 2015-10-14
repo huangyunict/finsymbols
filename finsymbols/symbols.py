@@ -6,8 +6,9 @@ from bs4 import BeautifulSoup
 from finsymbols.symbol_helper import *
 
 
-def get_sp500_symbols():
-    page_html = wiki_html('List_of_S%26P_500_companies','SP500.html')
+#   pass in working path to avoid potential permission error
+def get_sp500_symbols(work_path=os.path.dirname(finsymbols.__file__)):
+    page_html = wiki_html('List_of_S%26P_500_companies', os.path.join(work_path, 'SP500.html'))
     wiki_soup = BeautifulSoup(page_html, "html.parser")
     symbol_table = wiki_soup.find(attrs={'class': 'wikitable sortable'})
 
