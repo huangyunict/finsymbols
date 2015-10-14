@@ -7,7 +7,9 @@ from finsymbols.symbol_helper import *
 
 
 #   pass in working path to avoid potential permission error
-def get_sp500_symbols(work_path=os.path.dirname(finsymbols.__file__)):
+def get_sp500_symbols(work_path=""):
+    if not work_path:
+        work_path = _get_default_work_path()
     page_html = wiki_html('List_of_S%26P_500_companies', os.path.join(work_path, 'SP500.html'))
     wiki_soup = BeautifulSoup(page_html, "html.parser")
     symbol_table = wiki_soup.find(attrs={'class': 'wikitable sortable'})
@@ -60,3 +62,7 @@ def _get_exchange_data(exchange):
       save_file(file_path,symbol_data)
     
     return get_symbol_list(symbol_data,exchange)
+
+def _get_default_work_path():
+    return os.path.dirname(finsymbols.__file__)
+
