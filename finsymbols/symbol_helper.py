@@ -12,9 +12,6 @@ import re
 
 
 def get_symbol_list(symbol_data,exchange_name):
-    
-    csv_file = exchange_name +'.csv'    
-    
     symbol_list = list()
     symbol_data = symbol_data.replace('"', "")
     symbol_data = re.split("\r?\n", symbol_data)
@@ -22,15 +19,14 @@ def get_symbol_list(symbol_data,exchange_name):
     headers = symbol_data[0]
     #symbol,company,sector,industry,headquaters
     symbol_data = list(map(lambda x: x.split(","), symbol_data))
-    # We need to cut off the the last row because it is a null string
+    # We need to cut off the last row because it is a null string
     for row in symbol_data[1:-1]:
         symbol_data_dict = dict()
         symbol_data_dict['symbol'] = row[0] 
         symbol_data_dict['company'] = row[1] 
         symbol_data_dict['sector'] = row[6] 
         symbol_data_dict['industry'] = row[7] 
-        symbol_data_dict['industry'] = row[7] 
-
+        #   append symbol data dictionary
         symbol_list.append(symbol_data_dict)
     return symbol_list
 
@@ -89,3 +85,4 @@ def wiki_html(url,file_path):
         #Save file to be used by cache
         save_file(file_path,wiki_html)
         return wiki_html
+
