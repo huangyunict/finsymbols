@@ -39,29 +39,36 @@ def get_sp500_symbols(work_path=""):
     return symbol_data_list[1::]
 
 
-def get_nyse_symbols():
-    return _get_exchange_data("NYSE")
+def get_nyse_symbols(work_path=""):
+    if not work_path:
+        work_path = _get_default_work_path()
+    return _get_exchange_data("NYSE", work_path)
 
 
-def get_amex_symbols():
-    return _get_exchange_data("AMEX")
+def get_amex_symbols(work_path=""):
+    if not work_path:
+        work_path = _get_default_work_path()
+    return _get_exchange_data("AMEX", work_path)
 
 
-def get_nasdaq_symbols():
-    return _get_exchange_data("NASDAQ")
+def get_nasdaq_symbols(work_path=""):
+    if not work_path:
+        work_path = _get_default_work_path()
+    return _get_exchange_data("NASDAQ", work_path)
 
 
-def _get_exchange_data(exchange):
+def _get_exchange_data(exchange, work_path):
     url = get_exchange_url(exchange)
-    file_path = os.path.join(os.path.dirname(finsymbols.__file__), exchange)
+    file_path = os.path.join(work_path, exchange)
     if is_cached(file_path):
         with open(file_path, "r") as cached_file:
             symbol_data = cached_file.read()
     else:
       symbol_data = fetch_file(url)
-      save_file(file_path,symbol_data)
+      save_file(file_path, symbol_data)
     
-    return get_symbol_list(symbol_data,exchange)
+    return get_symbol_list(symbol_data, exchange)
+
 
 def _get_default_work_path():
     return os.path.dirname(finsymbols.__file__)
