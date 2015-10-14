@@ -34,9 +34,9 @@ def get_symbol_list(symbol_data,exchange_name):
         symbol_list.append(symbol_data_dict)
     return symbol_list
 
-def save_file(file_path,file_name):
+def save_file(file_path,file_content):
     saved_file = open(file_path , "w")
-    saved_file.write(file_name)
+    saved_file.write(file_content)
     saved_file.close()
 
 def get_exchange_url(exchange):
